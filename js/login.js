@@ -29,7 +29,7 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                         log.info("error occurred in creating new directory", err);
                         return;
                     }
-                }
+                } 
                 )
                 let txt_cfg = result._data
                 fs.writeFile(temp_config, JSON.stringify(txt_cfg), () => { log.info("File Creato!") })
