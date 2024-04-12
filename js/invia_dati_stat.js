@@ -13,13 +13,13 @@ function csv_temp_line(csv_temp) {
 
 
 document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
-    log.info('********Invia_Dati_Stat*******');
-    const NOTIFICATION_TITLE = 'Recharge'
-    const NOTIFICATION_BODY = 'Grazie per averci inviato i tuoi dati, le statistiche sono state aggiornate e pubblicate sul sito www.reweicoli.it'
-    const NOTIFICATION_BODY_ERROR = 'Qualcosa è andato storto,contatta lo staff Reweicoli per ricevere assistenza'
+   
+    console.log('********Invia_Dati_Stat*******');
+
+
     let file_dir = fs.readdirSync("C:\\MCTC\\Archivio")
-    log.info(file_dir)
-    log.info('file_dir'+file_dir);
+   console.log("IDS-> Cartella dati MCTC per Statistiche ->"+file_dir)
+
 
     let start_dir = "C:\\MCTC\\Archivio\\"
     file_dir = fs.readdirSync(start_dir)
@@ -152,54 +152,54 @@ document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
     start_dir += global.CodRew + "-"
     anno_ultima_revisione = document.getElementById('annoStat').value
 
-    fs.writeFile(start_dir + anno_ultima_revisione + '.csv', csv, () => { log.info("File Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '.csv', csv, () => { console.log("IDS-> File Csv "+anno_ultima_revisione+2+" Creato!") })
     i = 1;
     //  if(document.getElementById('1').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', gennaio, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', gennaio, () => { console.log("IDS-> File Csv "+ i + " Creato!") })
     // }
     i++;
     //if(document.getElementById('2').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', febbraio, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', febbraio, () => { console.log("IDS-> File Csv " + i + " Creato!") })
     //}
     i++
     //if(document.getElementById('3').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', marzo, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', marzo, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     // }
     i++;
     //if(document.getElementById('4').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', aprile, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', aprile, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     // }
     i++;
     //if(document.getElementById('5').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', maggio, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', maggio, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('6').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', giugno, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', giugno, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('7').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', luglio, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', luglio, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('8').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', agosto, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', agosto, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('9').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', settembre, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', settembre, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('10').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', ottobre, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', ottobre, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('11').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', novembre, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', novembre, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
     //if(document.getElementById('12').checked){
-    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', dicembre, () => { log.info("File " + i + " Creato!") })
+    fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', dicembre, () => {console.log("IDS-> File Csv "+ i + " Creato!") })
     //}
     i++;
 
@@ -231,6 +231,8 @@ document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
             formData_load.append('blob' + i, blob_single[i]);
         }
         formData_load.append('blob_log', blob_log[0]);
+
+        console.log("IDS-> Start Invio File ")
         fetch(
             `${sito}/kernel/Aj?gp=recharge&action=caricaFilesDaRechargeStat`,
             {
@@ -244,13 +246,14 @@ document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
                 // new window.Notification(result.type, { body: result.msg }).onclick = () => shell.openExternal('https://app.reweicoli.it/')
                 document.getElementById('invia_dati_result_stat').innerHTML = "<center><strong>Aggiornamento eseguito con successo<br></strong></center>"
                 document.getElementById('invia_dati_result_stat').classList.add("successo")
-                
+                console.log("IDS-> Invio File  Eseguito Correttamente")
                
             })
             .catch((error) => {
                 log.info(error)
                 document.getElementById('invia_dati_result_stat').innerHTML = "<center class='text-danger'><strong>Qualcosa è andato storto, <br>contatta lo staff Reweicoli per ricevere assistenza</strong></center>"
                 document.getElementById('invia_dati_result_stat').classList.add("errore")
+                console.warn("IDS-> Invio File  Fallito")
                 fetch(
                     `${sito}/kernel/Aj?gp=recharge&action=sendLog`,
                     {
