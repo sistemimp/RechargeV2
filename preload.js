@@ -6,25 +6,24 @@ const fs = require('fs');
 const sito = "https://app.reweicoli.it/"
 const  log =require ('electron-log/renderer')
 
+let logged="false";
 
-//console.log(global.appdata)
 let appDataPath = appData(applicationName); // returns a platform specific path to the default location for application data
 /* rimuovi il log */
+console.log("Preload - Start Preload")
 
 if(fs.existsSync(appDataPath + "/logs/main.log")){
     fs.unlinkSync(appDataPath + "/logs/main.log")
+    console.log("Preload - rimozione cartella Log")
 }
 
-console.log("appDataPath->"+appDataPath)
 global.appDataPath=appDataPath
-
-log.initialize();  
-log.info('Log from the renderer process');
-
+console.log("Preload - Set addData Folder: "+appDataPath)
 
 window.addEventListener('DOMContentLoaded', () => {
    
     document.getElementById("logout").style.display="none"
+    console.log('Preload - Internet Status')
     internet_status();
     setInterval(internet_status, 50000)
 
@@ -43,43 +42,41 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("login").style.display = "none"
     document.getElementById('internet_check').style.display = "none"
 
-    console.log(pjson.version);
-    log.info('Check Version: '+pjson.version);
+
     ///////////////////////////////////////////////////////////////////////////
     // acquisisce l'anno corrente
     let date = new Date().getFullYear();
     document.getElementById('anno').value=date
     document.getElementById('annoStat').value=date
-    log.info('Anno Statistiche->'+date);
-    console.log(date)
+
+    console.log("Preload - Set Anno corrente->"+date)
+
     global.current_year = date;
     ///////////////////////////////////////////////////////////////////////////
     /* cerca il nome del cliente dal file config creato nella login*/
     let temp_config = `${tempDirectory}\\ReCharge\\config.cfg`
     fs.mkdir(`${tempDirectory}\\ReCharge\\`, (err) => {
         if (err) {
-            console.log("Directory:", err);
+            console.warn("Preload -  Directory:", err);
             return;
         }
     })
-    console.log("preload->" + temp_config);
-    log.info('TempConfig:'+temp_config);
 
     fs.readFile(temp_config, 'utf8', (err, data) => {
-       
+        console.log("Preload - Start Reading Config.cfg")
         document.getElementById("exe").style.display = "block"
         try {
             let obj = JSON.parse(data)
-            console.warn(obj);
+
             if( obj._dati.anagrafica.length>0 ){
               global.anagrafica=obj._dati.anagrafica
               document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
               document.getElementById("logout").style.display="block"
-              global.login=true
+              console.log("Preload - Login Correct")
             }else{
                 document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
                 document.getElementById("logout").style.display="none"
-                global.login=false
+                console.log("Preload - Login Fail")
             }
             ///////////////////////////////////////////////////////////////////////////
             // controllo se quest'anno è già stato attivato Recharge
@@ -87,23 +84,23 @@ window.addEventListener('DOMContentLoaded', () => {
             checkdata.append('id_anagrafica', obj.id_anagrafica);
             global.id_anagrafica=obj.id_anagrafica;
             global.CodRew=obj._dati.cod_reweicoli;
-            console.log(obj.id_anagrafica);
+
             let checkanno =require("./js/checkcaricamento.js")
             checkcaricamento(date)
-            if(!global.login){
-                document.getElementById('exe').style.display="none"
-            }
+            global.accesso="true"
+            console.log("Preload - Accesso:"+global.accesso)
                 //////////////////////////////////////////////////////////////////////
         } catch (error) {
-            console.warn("%temp% config non trovata")
+            console.warn("Preload - %temp% config non trovata")
             document.getElementById('login').style.display = "block"
             document.getElementById("exe").style.display = "none"
+            global.accesso="false"
+            console.log("Preload - Accesso:"+global.accesso)
         }
 
     })
 
-
-
+   
 })
 
 

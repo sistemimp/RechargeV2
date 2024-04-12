@@ -38,8 +38,10 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                 global.id_anagrafica = result._data.id_anagrafica
                 global.cod_reweicoli = result._data._dati.cod_reweicoli
                 log.info("id=" + global.id_anagrafica)
+
                 document.getElementById("exe").style.display = "block"
                 document.getElementById("logout").style.display="block"
+
                 log.info(temp_config);
                 fs.readFile(temp_config, 'utf8', (err, data) => {
                     if (err) {
@@ -63,6 +65,7 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                         .then(result => {
                             log.info('Success:', result);
                             if (result.msg == true) {
+                                global.accesso="true"
                                 global.cod_reweicoli = result._data._dati.cod_reweicoli
                                 global.id_anagrafica = result._data.id_anagrafica
                                 log.info("id=" + global.id_anagrafica)
@@ -75,10 +78,8 @@ document.querySelector('#btn_login').addEventListener('click', () => {
 
 
                                 log.info(result._data._dati.statistiche)         
-                                checkanno()
+                                checkcaricamento(global.current_year)
                             }
-
-
                         })
          
                 })
