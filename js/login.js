@@ -3,9 +3,12 @@ const fs = require('fs');
 const { shell } = require('electron')
 
 document.querySelector('#btn_login').addEventListener('click', () => {
+    console.log("Login - Start login")
     let email = document.querySelector("#email").value;
     let pwd = document.querySelector("#password").value;
-    log.info(email + " " + pwd)
+
+    console.log("Login - Email: "+email)
+    console.log("Login - PWD: "+password)
 
     const formData = new FormData();
 
@@ -19,25 +22,28 @@ document.querySelector('#btn_login').addEventListener('click', () => {
         .then(response => response.json())
         .then(result => {
             if (result.msg == true) {
-
-                console.warn("Temp->" + tempDirectory)
-
+                console.log("Login - Temp Directory : "+tempDirectory)
                 let temp_config = `${tempDirectory}\\ReCharge\\config.cfg`
+                console.log("Login - Config File Path : "+temp_config)
 
                 fs.mkdir(`${tempDirectory}\\ReCharge\\`, (err) => {
                     if (err) {
                         log.info("error occurred in creating new directory", err);
+                        console.log("Login - Errore nella creazione della cartella: "`${tempDirectory}\\ReCharge\\` + " ->", err)
                         return;
                     }
                 } 
                 )
                 let txt_cfg = result._data
                 fs.writeFile(temp_config, JSON.stringify(txt_cfg), () => { log.info("File Creato!") })
+
                 document.getElementById("nomecentro").innerHTML = '<span><strong>' + result._data._dati.anagrafica + '</strong></span>'
-                log.info('Success:', result);
+
+                console.log("Login - Login Eseguita Correttemente > ",result)
                 global.id_anagrafica = result._data.id_anagrafica
                 global.cod_reweicoli = result._data._dati.cod_reweicoli
-                log.info("id=" + global.id_anagrafica)
+                console.log("Login - ID Anagrafica ->"+ global.id_anagrafica)
+                console.log("Login - Codice Reweicoli ->"+ global.cod_reweicoli)
 
                 document.getElementById("exe").style.display = "block"
                 document.getElementById("logout").style.display="block"
@@ -53,9 +59,10 @@ document.querySelector('#btn_login').addEventListener('click', () => {
 
                     global.cod_reweicoli = obj._dati.cod_reweicoli
                     let localtoken = obj._dati.token_recharge
-                    log.info("localtoken-> " + obj._dati.token_recharge);
-                    const formData = new FormData();
 
+                    console.log("Login - LocalToken: "+obj._dati.token_recharge)
+                    
+                    const formData = new FormData();
                     formData.append('token_recharge', localtoken);
 
                     fetch(`${sito}kernel/Aj?gp=tools&action=tokenRecharge&token_recharge=${localtoken}`, {
@@ -68,16 +75,13 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                                 global.accesso="true"
                                 global.cod_reweicoli = result._data._dati.cod_reweicoli
                                 global.id_anagrafica = result._data.id_anagrafica
-                                log.info("id=" + global.id_anagrafica)
-                                log.info("cod_rew---->" + global.cod_reweicoli)
+
+                                console.log("Login - ID Anagrafica ->"+ global.id_anagrafica)
+                                console.log("Login - Codice Reweicoli ->"+ global.cod_reweicoli)
 
 
                                 document.getElementById('exe').style.display = "block"
-         
                                 document.getElementById('login').style.display = "none"
-
-
-                                log.info(result._data._dati.statistiche)         
                                 checkcaricamento(global.current_year)
                             }
                         })
@@ -87,10 +91,11 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                 document.getElementById('login_result').innerHTML = "<center><strong>Login Errata<br>Verifica Le tue credenziali</strong></center>"
                 //document.getElementById('email').value = ""
                 document.getElementById('password').value = ""
+                console.log("Login - Login Fallita email e/o password errate")
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.log("Login - Errore: ", error)
         });
 })
 
