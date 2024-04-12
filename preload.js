@@ -66,6 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
     log.info('TempConfig:'+temp_config);
 
     fs.readFile(temp_config, 'utf8', (err, data) => {
+       
         document.getElementById("exe").style.display = "block"
         try {
             let obj = JSON.parse(data)
@@ -74,9 +75,11 @@ window.addEventListener('DOMContentLoaded', () => {
               global.anagrafica=obj._dati.anagrafica
               document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
               document.getElementById("logout").style.display="block"
+              global.login=true
             }else{
                 document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
                 document.getElementById("logout").style.display="none"
+                global.login=false
             }
             ///////////////////////////////////////////////////////////////////////////
             // controllo se quest'anno è già stato attivato Recharge
@@ -87,6 +90,9 @@ window.addEventListener('DOMContentLoaded', () => {
             console.log(obj.id_anagrafica);
             let checkanno =require("./js/checkcaricamento.js")
             checkcaricamento(date)
+            if(!global.login){
+                document.getElementById('exe').style.display="none"
+            }
                 //////////////////////////////////////////////////////////////////////
         } catch (error) {
             console.warn("%temp% config non trovata")
