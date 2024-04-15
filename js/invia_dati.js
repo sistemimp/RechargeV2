@@ -14,20 +14,15 @@ function csv_temp_line(csv_temp) {
 }
 
 
-//const NOTIFICATION_TITLE = 'Recharge'
-//const NOTIFICATION_BODY = 'Grazie per averci inviato i tuoi dati,\nun nostro operatore si occuperà di procedere alla lavorazione'
-//const NOTIFICATION_BODY_ERROR = 'Qualcosa è andato storto,\ncontatta lo staff Reweicoli per ricevere assistenza'
-//const NOTIFICATION_CONFIRM = 'Clicca su OK per aprire il sito altrimenti su Annulla per proseguire all\'interno di Recharge'
-
 document.querySelector('#Invia_Dati').addEventListener('click', () => {
 
-    console.log('********Invia_Dati_Revisioni*******');
+    log.info('********Invia_Dati_Revisioni*******');
 
 
     let file_dir = fs.readdirSync("C:\\MCTC\\Archivio")
     log.info(file_dir)
 
-    onsole.log("ID-> Cartella dati MCTC per Statistiche ->"+file_dir)
+    log.info("ID-> Cartella dati MCTC per Statistiche ->"+file_dir)
     let anno_scadenza = document.getElementById("anno").value
     let anno_ultima_revisione = anno_scadenza - 2
     log.info(anno_scadenza)
@@ -37,20 +32,20 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
     //   }
     
     for (let i = 0; i < file_dir.length; i++) {
-        console.log(anno_ultima_revisione +"="+file_dir[i])
-        if (anno_ultima_revisione == file_dir[i]) {
-            log.info("Cartella trovata");
-            file_trovato = true;
+        log.info(anno_ultima_revisione +"="+file_dir[i])
 
+        if (anno_ultima_revisione == file_dir[i]) {
+            log.info("ID-> Ccartella non trovata")
+            file_trovato = true;
         }else{
-            log.info("cartella non trovata")
-            console.log("cartella non trovata")
+            log.info("ID-> Cartella non trovata")
         }
     }
     if (file_trovato) {
-        console.log("startTrovato")
+        log.info("startTrovato")
         let start_dir = "C:\\MCTC\\Archivio\\" + anno_ultima_revisione + "\\"
-        console.log(start_dir)
+        log.info(start_dir)
+
         file_dir = fs.readdirSync("C:\\MCTC\\Archivio\\" + anno_ultima_revisione + "\\")
         //log.info(file_dir)
         let intestazione = "NomeFileMCTCNet;CAP;Nome;Tipo;Citta;Targa;Fabbrica;EsitoRevisione;CognomeDenominazione;Indirizzo;Provincia;DataEffettiva"
@@ -178,55 +173,55 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
         }
         csv= gennaio+febbraio+marzo+aprile+maggio+giugno+luglio+agosto+settembre+ottobre+novembre+dicembre
         start_dir +=global.CodRew + "-"
-        console.log("inviadati->"+global.CodRew )+
+        log.info("inviadati->"+global.CodRew )+
         fs.writeFile(start_dir + anno_ultima_revisione + '.csv', csv, () => { log.info("File Creato!") })
         i = 1;
         //  if(document.getElementById('1').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', gennaio, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', gennaio, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         // }
         i++;
         //if(document.getElementById('2').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', febbraio, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', febbraio, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++
         //if(document.getElementById('3').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', marzo, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', marzo, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         // }
         i++;
         //if(document.getElementById('4').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', aprile, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', aprile, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         // }
         i++;
         //if(document.getElementById('5').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', maggio, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', maggio, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('6').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', giugno, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', giugno, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('7').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', luglio, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', luglio, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('8').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', agosto, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', agosto, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('9').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', settembre, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', settembre, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('10').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', ottobre, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', ottobre, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('11').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', novembre, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', novembre, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
         //if(document.getElementById('12').checked){
-        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', dicembre, () => {console.log("ID-> File Csv "+ i + " Creato!") })
+        fs.writeFile(start_dir + anno_ultima_revisione + '_' + i + '.csv', dicembre, () => {log.info("ID-> File Csv "+ i + " Creato!") })
         //}
         i++;
 
@@ -250,7 +245,7 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
             for (let i = 0; i < blob_single.length; i++) {
                 formData_load.append('blob' + i, blob_single[i]);
             }
-            console.log("ID-> Start Invio File ")
+            log.info("ID-> Start Invio File ")
             fetch(
                 `${sito}kernel/Aj?gp=recharge&action=caricaFilesDaRecharge2`,
                 {
@@ -265,13 +260,13 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
                     checkcaricamento(anno_ultima_revisione+2) 
                      document.getElementById('invia_dati_result').innerHTML="<center><strong>Dati Caricati con successo</strong></center>"
                      document.getElementById('invia_dati_result').classList.add("successo")
-                     console.log("ID-> Invio File  Eseguito Correttamente")
+                     log.info("ID-> Invio File  Eseguito Correttamente")
 
                 })
                 .catch((error) => {
                     log.info('Error:', error);
                     //new window.Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY_ERROR })
-                    document.getElementById('invia_dati_result').innerHTML="<center><strong>Qualcosa è andato storto, <br>contatta lo staff Reweicoli per ricevere assistenza</strong></center>"
+                    document.getElementById('invia_dati_result').innerHTML="<center><strong>Qualcosa è andato storto, <br>contatta lo staff Reweicoli per ricevere assistenza al numero 327 3953 700</strong></center>"
                     document.getElementById('invia_dati_result').classList.add("errore")
                     console.warn("ID-> Invio File  Fallito")
                     fetch(
@@ -281,13 +276,13 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
                             body: formData_load,
                         }
                     ).then((response) => response.json())
-                    .then((result) => {console.log(result)})
+                    .then((result) => {log.info(result)})
                 });
         }, 128);
     }else{
-        console.log("ID-> "+ anno_ultima_revisione+2 +'anno non presente!');
+        log.info("ID-> "+ anno_ultima_revisione+2 +'anno non presente!');
         document.getElementById('invia_dati_result').innerHTML="<center><strong>La Cartella per l'annualità richiesta non è stata trovata</strong></center>"
-        document.getElementById('invia_dati_result').classList.add("errore")
+        document.getElementById('invia_dati_result').classList.add("text-danger")
     };
     //controllo anno 
     

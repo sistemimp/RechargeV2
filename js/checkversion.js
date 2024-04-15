@@ -13,20 +13,20 @@ fetch(`${sito}kernel/Aj?gp=tools&action=getVersioneRecharge`, {
 })
     .then(response => response.json())
     .then(result => {
-        console.log("CheckVersion - Versione Corrente-> "+result.versione_recharge)
+        log.info("CheckVersion - Versione Corrente-> "+result.versione_recharge)
         if (result.versione_recharge == pjson.version) {
-            console.log("CheckVersion - Stai utilizzando l'ultima versione disponibile")
+            log.info("CheckVersion - Stai utilizzando l'ultima versione disponibile")
         } else {
             newversion = true;
             global.version = pjson.version;
             document.getElementById('newversion').style.display = "block"
             document.getElementById('exe').style.display = "none"
-            console.log("CheckVersion - Versione del programma Obsoleta: Versione Corrente->"+result.versione_recharge+" Vesione in uso "+ pjson.version)
+            log.info("CheckVersion - Versione del programma Obsoleta: Versione Corrente->"+result.versione_recharge+" Vesione in uso "+ pjson.version)
         }
     })
     .catch(error => {
-        console.log('Error:'+`${sito}kernel/Aj?gp=tools&action=getVersioneRecharge`);
-        console.log('Error:'+ error);
+        log.info('Error:'+`${sito}kernel/Aj?gp=tools&action=getVersioneRecharge`);
+        log.info('Error:'+ error);
         console.warn('Controlla la connessione ad internet:', error);
 
         document.getElementById('internet_check').style.display = "block"

@@ -4,26 +4,42 @@ let appData = require('app-data-folder')
 let applicationName = 'RewStat';
 const fs = require('fs');
 const sito = "https://app.reweicoli.it/"
-const  log =require ('electron-log/renderer')
+const log = require('electron-log/renderer')
 
-let logged="false";
+let logged = "false";
 
 let appDataPath = appData(applicationName); // returns a platform specific path to the default location for application data
 /* rimuovi il log */
-console.log("Preload - Start Preload")
+log.info("Preload - Start Preload")
 
-if(fs.existsSync(appDataPath + "/logs/main.log")){
+
+if (fs.existsSync(appDataPath + "/logs/main.log")) {
     fs.unlinkSync(appDataPath + "/logs/main.log")
-    console.log("Preload - rimozione cartella Log")
+    log.info("Preload - rimozione cartella Log")
 }
 
-global.appDataPath=appDataPath
-console.log("Preload - Set addData Folder: "+appDataPath)
+
+
+
+global.appDataPath = appDataPath
+log.info("Preload - Set addData Folder: " + appDataPath)
 
 window.addEventListener('DOMContentLoaded', () => {
-   
-    document.getElementById("logout").style.display="none"
-    console.log('Preload - Internet Status')
+
+    if (!fs.existsSync("C://MCTC")) {
+        log.info("Preload - Attenzione! PC Sbagliato, su questa postazione non è presente la cartella MCTC")
+        document.getElementById("noaccess").style.display = "none"
+        document.getElementById("newversion").style.display = "none"
+        document.getElementById("login").style.display = "none"
+        document.getElementById('internet_check').style.display = "none"
+        document.getElementById('exe').style.display = "none"
+        document.getElementById('MCTCcheck').style.display = "block"
+        return
+    } else {
+        log.info("Preload - Sono nel PC Giusto!")
+    }
+    document.getElementById("logout").style.display = "none"
+    log.info('Preload - Internet Status')
     internet_status();
     setInterval(internet_status, 50000)
 
@@ -46,10 +62,10 @@ window.addEventListener('DOMContentLoaded', () => {
     ///////////////////////////////////////////////////////////////////////////
     // acquisisce l'anno corrente
     let date = new Date().getFullYear();
-    document.getElementById('anno').value=date
-    document.getElementById('annoStat').value=date
+    document.getElementById('anno').value = date
+    document.getElementById('annoStat').value = date
 
-    console.log("Preload - Set Anno corrente->"+date)
+    log.info("Preload - Set Anno corrente->" + date)
 
     global.current_year = date;
     ///////////////////////////////////////////////////////////////////////////
@@ -57,50 +73,50 @@ window.addEventListener('DOMContentLoaded', () => {
     let temp_config = `${tempDirectory}\\ReCharge\\config.cfg`
     fs.mkdir(`${tempDirectory}\\ReCharge\\`, (err) => {
         if (err) {
-            console.warn("Preload -  Directory:", err);
+            log.warn("Preload -  Directory:", err);
             return;
         }
     })
 
     fs.readFile(temp_config, 'utf8', (err, data) => {
-        console.log("Preload - Start Reading Config.cfg")
+        log.info("Preload - Start Reading Config.cfg")
         document.getElementById("exe").style.display = "block"
         try {
             let obj = JSON.parse(data)
 
-            if( obj._dati.anagrafica.length>0 ){
-              global.anagrafica=obj._dati.anagrafica
-              document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
-              document.getElementById("logout").style.display="block"
-              console.log("Preload - Login Correct")
-            }else{
+            if (obj._dati.anagrafica.length > 0) {
+                global.anagrafica = obj._dati.anagrafica
                 document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
-                document.getElementById("logout").style.display="none"
-                console.log("Preload - Login Fail")
+                document.getElementById("logout").style.display = "block"
+                log.info("Preload - Login Correct")
+            } else {
+                document.getElementById("nomecentro").innerHTML = "<strong>" + obj._dati.anagrafica + "</strong>"
+                document.getElementById("logout").style.display = "none"
+                log.info("Preload - Login Fail")
             }
             ///////////////////////////////////////////////////////////////////////////
             // controllo se quest'anno è già stato attivato Recharge
             const checkdata = new FormData();
             checkdata.append('id_anagrafica', obj.id_anagrafica);
-            global.id_anagrafica=obj.id_anagrafica;
-            global.CodRew=obj._dati.cod_reweicoli;
+            global.id_anagrafica = obj.id_anagrafica;
+            global.CodRew = obj._dati.cod_reweicoli;
 
-            let checkanno =require("./js/checkcaricamento.js")
+            let checkanno = require("./js/checkcaricamento.js")
             checkcaricamento(date)
-            global.accesso="true"
-            console.log("Preload - Accesso:"+global.accesso)
-                //////////////////////////////////////////////////////////////////////
+            global.accesso = "true"
+            log.info("Preload - Accesso:" + global.accesso)
+            //////////////////////////////////////////////////////////////////////
         } catch (error) {
             console.warn("Preload - %temp% config non trovata")
             document.getElementById('login').style.display = "block"
             document.getElementById("exe").style.display = "none"
-            global.accesso="false"
-            console.log("Preload - Accesso:"+global.accesso)
+            global.accesso = "false"
+            log.info("Preload - Accesso:" + global.accesso)
         }
 
     })
 
-   
+
 })
 
 
