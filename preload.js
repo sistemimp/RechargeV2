@@ -6,6 +6,7 @@ const fs = require('fs');
 const sito = "https://app.reweicoli.it/"
 const log = require('electron-log/renderer')
 
+global.isOnline="false"
 let logged = "false";
 
 let appDataPath = appData(applicationName); // returns a platform specific path to the default location for application data
@@ -39,9 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
         log.info("Preload - Sono nel PC Giusto!")
     }
     document.getElementById("logout").style.display = "none"
-    log.info('Preload - Internet Status')
-    internet_status();
-    setInterval(internet_status, 50000)
+
 
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector)
@@ -105,6 +104,10 @@ window.addEventListener('DOMContentLoaded', () => {
             checkcaricamento(date)
             global.accesso = "true"
             log.info("Preload - Accesso:" + global.accesso)
+            if(global.isOnline!="true"){
+                document.getElementById('exe').style.display = "none"
+                return
+            }
             //////////////////////////////////////////////////////////////////////
         } catch (error) {
             console.warn("Preload - %temp% config non trovata")
@@ -112,10 +115,18 @@ window.addEventListener('DOMContentLoaded', () => {
             document.getElementById("exe").style.display = "none"
             global.accesso = "false"
             log.info("Preload - Accesso:" + global.accesso)
+            if(global.isOnline!="true"){
+                document.getElementById('exe').style.display = "none"
+                return
+            }
         }
 
     })
+    log.info('Preload - Internet Status')
+    internet_status();
+    setInterval(internet_status, 10000)
 
+    
 
 })
 
