@@ -20,8 +20,11 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.15",
     "app-data-folder": "^1.0.0",
+    "bootstrap": "^5.3.3",
     "electron-forge": "^5.2.4",
     "electron-log": "^5.1.2",
+    "express": "^4.19.2",
+    "jquery": "^3.7.1",
     "temp-dir": "^2.0.0"
   },
   "build": {

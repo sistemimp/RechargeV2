@@ -44,3 +44,11 @@
 .newversion{
     display: none;
 }
+
+
+.custom-tooltip.tooltip > .tooltip-inner
+{
+    font-size: 15px;
+    text-align: left;
+    max-width: 500px;
+}

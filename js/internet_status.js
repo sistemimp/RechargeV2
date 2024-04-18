@@ -1,6 +1,7 @@
 const sito = "https://app.reweicoli.it/"
 const log = require('electron-log/renderer')
 
+
 async function internet_status() {
     try {
         let IS = await fetch(`${sito}/kernel/Aj?gp=recharge&action=checkOnline`).then(response => response.json()).then(result => {

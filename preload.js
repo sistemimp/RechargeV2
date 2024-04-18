@@ -6,6 +6,7 @@ const fs = require('fs');
 const sito = "https://app.reweicoli.it/"
 const log = require('electron-log/renderer')
 
+
 global.isOnline="false"
 let logged = "false";
 

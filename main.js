@@ -4,6 +4,7 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
+
 app.commandLine.appendSwitch("ignore-certificate-errors");
 
 
@@ -50,7 +51,7 @@ global.appdata = appdata
 app.whenReady().then(async () => {
   createWindow()
   app.on('activate', () => {
-
+   
     log.info("App Start")
     console.log("App Start")
     // On macOS it's common to re-create a window in the app when the
