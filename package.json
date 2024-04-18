@@ -47,5 +47,9 @@
       "license": "license.html"
     },
     "icon": "./img/icona.png"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sistemimp/RewStat"
   }
 }

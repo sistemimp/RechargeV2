@@ -6,6 +6,7 @@ const path = require('path')
 
 app.commandLine.appendSwitch("ignore-certificate-errors");
 
+
 const log = require('electron-log/main')
 log.initialize();
 //crashReporter.start({ submitURL: 'https://your-domain.com/url-to-submit' })
@@ -17,8 +18,6 @@ if (process.defaultApp) {
 } else {
   app.setAsDefaultProtocolClient('RewStat')
 }
-
-
 
 const createWindow = () => {
   // Create the browser window.

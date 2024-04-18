@@ -42,6 +42,10 @@ function checkcaricamento(anno) {
         })
 }
 
+
+
+
 document.querySelector('#anno').addEventListener("change",(event)=>{
     checkcaricamento( event.target.value)
+    document.getElementById("invia_dati_result").innerHTML=""
 })
