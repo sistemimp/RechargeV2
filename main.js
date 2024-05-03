@@ -14,17 +14,19 @@ log.initialize();
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('RewStat', process.execPath, [path.resolve(process.argv[1])])
+    app.setAsDefaultProtocolClient('ReWisioni', process.execPath, [path.resolve(process.argv[1])])
   }
 } else {
-  app.setAsDefaultProtocolClient('RewStat')
+  app.setAsDefaultProtocolClient('ReWisioni')
 }
+
+app.setAsDefaultProtocolClient("ReWisioni")
 
 const createWindow = () => {
   // Create the browser window.
 
   const mainWindow = new BrowserWindow({
-    title: "RewStat",
+    title: "ReWisioni",
     width: 1080,
     height: 900,
     webPreferences: {
@@ -76,4 +78,3 @@ app.on('window-all-closed', async () => {
 //     dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
 //   })
 
-app.setAsDefaultProtocolClient("RewStat")

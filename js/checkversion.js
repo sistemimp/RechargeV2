@@ -37,5 +37,5 @@ fetch(`${sito}kernel/Aj?gp=tools&action=getVersioneRecharge`, {
 
     
 document.querySelector("#upgrade").addEventListener('click', () => {
-    window.open(`${sito}download/rewstat.html`);
+    window.open(`${sito}download/ReWisioni.html`);
 })

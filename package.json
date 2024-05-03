@@ -1,7 +1,7 @@
 {
-  "name": "RewStat",
-  "version": "1.0.2",
-  "description": "RewStat - Aggiornamento dati",
+  "name": "ReWisioni",
+  "version": "1.0.0",
+  "description": "ReWisioni - Aggiornamento dati",
   "main": "main.js",
   "author": "Mediaprint S.r.l.",
   "license": "MIT",
@@ -23,12 +23,11 @@
     "bootstrap": "^5.3.3",
     "electron-forge": "^5.2.4",
     "electron-log": "^5.1.2",
-    "express": "^4.19.2",
     "jquery": "^3.7.1",
     "temp-dir": "^2.0.0"
   },
   "build": {
-    "appId": "RewStat",
+    "appId": "ReWisioni",
     "mac": {
       "category": "public.app-category.business"
     },
@@ -53,6 +52,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sistemimp/RewStat"
+    "url": "https://github.com/sistemimp/ReWisioni"
   }
 }
