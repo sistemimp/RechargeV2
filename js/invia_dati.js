@@ -1,3 +1,6 @@
+
+
+
 function write_txt(testo) {
     //log.info(testo)
     return testo.replace(";", "") + ";"
@@ -14,11 +17,56 @@ function csv_temp_line(csv_temp) {
 }
 
 
-document.querySelector('#Invia_Dati').addEventListener('click', () => {
+ function loading(arg) {
+    if(arg){
+       document.getElementById("Invia_Dati").classList.add('d-none');
+       document.getElementById("spinner").classList.remove('d-none');
 
+    }else{
+        document.getElementById("Invia_Dati").classList.remove('d-none');
+        document.getElementById("spinner").classList.add('d-none');
+    }
+    console.log("loading->"+arg)
+}
+
+
+
+function carica_dati_rewisioni(){
+    loading(true)
     log.info('********Invia_Dati_Revisioni*******');
 
+    if( global.checkcaricamento){
+        const domanda1="Annualità già caricata!"
+        const domanda2="Attenzione! confermando l'aggiornamento dei dati, eventuali nominativi rimossi dalle liste mensili saranno reinseriti.";
+        swal(domanda1,domanda2, {
+            buttons: {
+                cancel: "No, Lascia Inalterato!",
+                catch: {text: "Si, Prosegui con il caricamento!", value: "continua"}
+            },
+          }).then((value)=>{
+            switch (value) {
 
+                case "continua":
+                    carica_dati_rewisioni_script()
+                    break;
+                default:
+                    loading(false)
+                    swal("Caricamento Annullato");
+                    break;
+        }})
+    }else{
+        carica_dati_rewisioni_script()
+    }
+}
+
+document.querySelector('#Invia_Dati').addEventListener('click',() => {
+    
+    carica_dati_rewisioni()
+
+})
+
+
+function carica_dati_rewisioni_script(){
     let file_dir = fs.readdirSync("C:\\MCTC\\Archivio")
     log.info(file_dir)
 
@@ -246,6 +294,7 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
                 formData_load.append('blob' + i, blob_single[i]);
             }
             log.info("ID-> Start Invio File ")
+            
             fetch(
                 `${sito}kernel/Aj?gp=recharge&action=caricaFilesDaRecharge2`,
                 {
@@ -256,7 +305,7 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
                 .then((response) => response.json())
                 .then((result) => {
                     log.info(result)
-
+                    loading(false)
                     checkcaricamento(anno_ultima_revisione+2) 
                      document.getElementById('invia_dati_result').innerHTML="<center><strong>Dati Caricati con successo</strong></center>"
                      document.getElementById('invia_dati_result').classList.add("successo")
@@ -264,6 +313,7 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
 
                 })
                 .catch((error) => {
+                    loading(false)
                     log.info('Error:', error);
                     //new window.Notification(NOTIFICATION_TITLE, { body: NOTIFICATION_BODY_ERROR })
                     document.getElementById('invia_dati_result').innerHTML="<center><strong>Qualcosa è andato storto, <br>contatta lo staff Reweicoli per ricevere assistenza al numero 327 3953 700</strong></center>"
@@ -278,12 +328,12 @@ document.querySelector('#Invia_Dati').addEventListener('click', () => {
                     ).then((response) => response.json())
                     .then((result) => {log.info(result)})
                 });
-        }, 128);
+        }, 128)
+    
     }else{
         log.info("ID-> "+ anno_ultima_revisione+2 +'anno non presente!');
         document.getElementById('invia_dati_result').innerHTML="<center><strong>La Cartella per l'annualità richiesta non è stata trovata</strong></center>"
         document.getElementById('invia_dati_result').classList.add("text-danger")
     };
     //controllo anno 
-    
-})
+}

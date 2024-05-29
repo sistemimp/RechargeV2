@@ -8,10 +8,10 @@
   "scripts": {
     "start": "electron .",
     "app:dir": "electron-builder --dir",
-    "app:dist": "electron-builder"
+    "app:dist": "electron-builder --win --ia32 --x64"
   },
   "devDependencies": {
-    "electron": "^29.3.0",
+    "electron": "^22.3.27",
     "electron-builder": "^22.14.13",
     "electron-packager": "^15.4.0"
   },
@@ -24,6 +24,7 @@
     "electron-forge": "^5.2.4",
     "electron-log": "^5.1.2",
     "jquery": "^3.7.1",
+    "sweetalert": "^2.1.2",
     "temp-dir": "^2.0.0"
   },
   "build": {
@@ -37,9 +38,7 @@
       "channel": "latest"
     },
     "win": {
-      "target": [
-        "nsis-web"
-      ]
+      "target": "nsis-web"
     },
     "nsis": {
       "oneClick": false,

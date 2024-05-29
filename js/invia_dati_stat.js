@@ -241,18 +241,17 @@ document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
         )
             .then((response) => response.json())
             .then((result) => {
-                log.info(result)
+                log.info("IDS-> CaricaFilesDaRechargeStat Risposta ->"+result)
                 // new window.Notification(result.type, { body: result.msg }).onclick = () => shell.openExternal('https://app.reweicoli.it/')
-                document.getElementById('invia_dati_result_stat').innerHTML = "<center><strong>Aggiornamento eseguito con successo<br></strong></center>"
+                document.getElementById('invia_dati_result_stat').innerHTML = "<center><strong>Aggiornamento eseguito, potrai visualizzarli all'interno della tua area del sito REWEICOLI<br></strong></center>"
                 document.getElementById('invia_dati_result_stat').classList.add("successo")
-                log.info("IDS-> Invio File  Eseguito Correttamente")
-               
+                log.info("IDS-> Invio File Eseguito Correttamente")
             })
             .catch((error) => {
-                log.info(error)
+                log.info("IDS-> Errore invio File ->"+error)
                 document.getElementById('invia_dati_result_stat').innerHTML = "<center class='text-danger'><strong>Qualcosa è andato storto, <br>contatta lo staff Reweicoli per ricevere assistenza</strong></center>"
                 document.getElementById('invia_dati_result_stat').classList.add("errore")
-                console.warn("IDS-> Invio File  Fallito")
+                console.warn("IDS-> Invio File Fallito")
                 fetch(
                     `${sito}/kernel/Aj?gp=recharge&action=sendLog`,
                     {
@@ -260,7 +259,7 @@ document.querySelector('#Invia_Dati_Stat').addEventListener('click', () => {
                         body: formData_load,
                     }
                 ).then((response) => response.json())
-                .then((result) => {log.info(result)})
+                .then((result) => {log.info("Result->"+result)})
             });
     }, 128);
 })
