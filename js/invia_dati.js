@@ -17,6 +17,8 @@ function csv_temp_line(csv_temp) {
 }
 
 
+
+
  function loading(arg) {
     if(arg){
        document.getElementById("Invia_Dati").classList.add('d-none');
@@ -60,8 +62,10 @@ function carica_dati_rewisioni(){
 }
 
 document.querySelector('#Invia_Dati').addEventListener('click',() => {
-    
+    let anno_scadenza = document.getElementById("anno").value
+
     carica_dati_rewisioni()
+   
 
 })
 
@@ -306,10 +310,11 @@ function carica_dati_rewisioni_script(){
                 .then((result) => {
                     log.info(result)
                     loading(false)
-                    checkcaricamento(anno_ultima_revisione+2) 
+                    
                      document.getElementById('invia_dati_result').innerHTML="<center><strong>Dati Caricati con successo</strong></center>"
                      document.getElementById('invia_dati_result').classList.add("successo")
                      log.info("ID-> Invio File  Eseguito Correttamente")
+                     
 
                 })
                 .catch((error) => {
@@ -328,7 +333,7 @@ function carica_dati_rewisioni_script(){
                     ).then((response) => response.json())
                     .then((result) => {log.info(result)})
                 });
-        }, 128)
+        }, 1024)
     
     }else{
         log.info("ID-> "+ anno_ultima_revisione+2 +'anno non presente!');
@@ -336,4 +341,5 @@ function carica_dati_rewisioni_script(){
         document.getElementById('invia_dati_result').classList.add("text-danger")
     };
     //controllo anno 
+    
 }

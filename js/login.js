@@ -41,9 +41,9 @@ document.querySelector('#btn_login').addEventListener('click', () => {
 
                 log.info("Login - Login Eseguita Correttemente > ",result)
                 global.id_anagrafica = result._data.id_anagrafica
-                global.cod_reweicoli = result._data._dati.cod_reweicoli
+                global.CodRew = result._data._dati.cod_reweicoli
                 log.info("Login - ID Anagrafica ->"+ global.id_anagrafica)
-                log.info("Login - Codice Reweicoli ->"+ global.cod_reweicoli)
+                log.info("Login - Codice Reweicoli ->"+ global.CodRew)
 
                 document.getElementById("exe").style.display = "block"
                 document.getElementById("logout").style.display="block"
@@ -57,7 +57,7 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                     log.info(data);
                     let obj = JSON.parse(data);
 
-                    global.cod_reweicoli = obj._dati.cod_reweicoli
+                    global.CodRew = obj._dati.cod_reweicoli 
                     let localtoken = obj._dati.token_recharge
 
                     log.info("Login - LocalToken: "+obj._dati.token_recharge)
@@ -73,11 +73,11 @@ document.querySelector('#btn_login').addEventListener('click', () => {
                             log.info('Success:', result);
                             if (result.msg == true) {
                                 global.accesso="true"
-                                global.cod_reweicoli = result._data._dati.cod_reweicoli
+                                global.CodRew = result._data._dati.cod_reweicoli
                                 global.id_anagrafica = result._data.id_anagrafica
 
                                 log.info("Login - ID Anagrafica ->"+ global.id_anagrafica)
-                                log.info("Login - Codice Reweicoli ->"+ global.cod_reweicoli)
+                                log.info("Login - Codice Reweicoli ->"+ global.CodRew)
 
 
                                 document.getElementById('exe').style.display = "block"

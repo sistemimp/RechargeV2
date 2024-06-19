@@ -4,13 +4,10 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-
 app.commandLine.appendSwitch("ignore-certificate-errors");
-
 
 const log = require('electron-log/main')
 log.initialize();
-//crashReporter.start({ submitURL: 'https://your-domain.com/url-to-submit' })
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
@@ -62,7 +59,6 @@ app.whenReady().then(async () => {
 
   })
 })
-
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

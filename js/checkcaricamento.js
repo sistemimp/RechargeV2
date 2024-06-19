@@ -1,5 +1,6 @@
 const bootstrap=require('bootstrap')
 const swal = require('sweetalert');
+
 function checkcaricamento(anno) {
     let checkdata = new FormData();
     checkdata.append('id_anagrafica', global.id_anagrafica);
